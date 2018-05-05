@@ -1,5 +1,4 @@
 import time
-from datetime import datetime, timedelta
 
 from . import base
 from .attachments import Attachment
@@ -258,7 +257,7 @@ class GenericMessage(base.ManagedResource):
     def __init__(self, manager, conversation_id, **data):
         super().__init__(manager, **data)
         self.conversation_id = conversation_id
-        self.created_at = utils.get_datetime(self.data['created_at'])
+        self.created_at = self.data['created_at']
         attachments = self.data.get('attachments') or []
         self.attachments = Attachment.from_bulk_data(attachments)
         self._likes = Likes(self.manager.session, self.conversation_id,
